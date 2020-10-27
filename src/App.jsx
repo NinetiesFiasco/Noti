@@ -1,30 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
 import Noti from './Notes/Noti'
 import './globalStyles.css'
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-`
-
-const Cell = styled.div`
-  outline: 1px solid black;
-  min-height: 1vh;
-  text-align: center;
-`
-
-const Head = styled(Cell)`
-  font-weight: 600;
-`
-const Body = styled(Cell)`
-
-`
+import {Grid,Head,Body} from './AppComponents'
 
 function App() {
-const accords = {
-  "do": ['do','mi','sol']
-}
+
+  const accords = {
+    "do": ['do','mi','sol']
+  }
 
   return <div>
     <Grid>
@@ -34,8 +17,8 @@ const accords = {
       <Head>Септаккорд</Head>
 
       <Body>До (C)</Body>
-      <Body><Noti notes={accords.do}/></Body>
-      <Body></Body>
+      <Body><Noti notes={accords.do} minor={[0,0,0]}/></Body>
+      <Body><Noti notes={accords.do} minor={[0,-1,0,0]}/></Body>
       <Body></Body>
 
       <Body>Ре (D)</Body>

@@ -1,15 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
 import key from './key.png'
 import {Container} from './Noti'
-
-
-const StanSize = 10;
-
-const Line = styled.div`
-  border-bottom: 1px solid black;
-  margin: 10px;
-`
+import {Nota,DopLine,Line,Key,Bemol,Diez} from './StanComponents'
 
 const positions = [
   {name:"do",top:52},
@@ -21,40 +13,28 @@ const positions = [
   {name:"si",top:19}
 ]
 
-const DopLine = styled(Line)`
-  margin: ${StanSize}px 50% ${StanSize}px 30%;
-`
+const NotaEl = ({fromTop,minor}) => {
+  let bemolDiez = null;
+  if (minor<0) bemolDiez = <Bemol>b</Bemol>
+  else if (minor>0) bemolDiez = <Diez>#</Diez>
+  
+  return <Nota fromTop={fromTop}>{bemolDiez}</Nota>
+}
 
-const Key = styled.img`
-  position: absolute;
-  width: 20px;
-  left: 15px;
-  top: -5px;
-`
+const Stan = ({notes,minor}) => {
 
-const Nota = styled.div`
-  position: absolute;
-  left: 35%;
-  top: ${props=>props.fromTop}px;
-  background: black;
-  width: 16px;
-  height: 8px;
-  border-radius: 10px/5px;
-  color: pink;
-`
-
-const Stan = ({notes}) => {
-
-  let linesUI=[];
+  let linesUI=[]
   for (var i=0;i<5;i++)
     linesUI.push(<Line key={i}/>)
-
-
-let notaUI = positions.map((n,key)=>{
-  return notes.includes(n.name)
-    ?<Nota fromTop={n.top} key={key} />
-    :null
-})
+  let index = -1
+  let notaUI = positions.map((n,key)=>{    
+    if (notes.includes(n.name)){
+      index += 1
+      let minorVal = minor[index]
+      return <NotaEl fromTop={n.top} minor={minorVal} key={key} />
+    }
+    return null;
+  })
 
   return <Container>
     <Key src={key} />
@@ -62,6 +42,6 @@ let notaUI = positions.map((n,key)=>{
     <DopLine/>
     {notaUI}    
   </Container>
-
 }
+
 export default Stan

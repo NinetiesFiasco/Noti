@@ -9,12 +9,10 @@ export const Container = styled.div`
   min-width: 200px;
 `
 
-
-
-const Noti = ({notes}) => {
+const Noti = ({notes,minor}) => {
   return <Container>
-      <Stan notes={notes} />
-      <Applicatura notes={notes} />
+      <Stan notes={notes} minor={minor} />
+      <Applicatura notes={notes} minor={minor} />
     </Container>
 }
 
